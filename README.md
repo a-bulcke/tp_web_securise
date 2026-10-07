@@ -48,6 +48,15 @@ On utilise un **nom** :
 2. Sur le poste client, ajouter au fichier hosts
    (`C:\Windows\System32\drivers\etc\hosts` sous Windows, `/etc/hosts` sinon) :
    `IP_DU_SERVEUR  tpweb.local`
+   ou utiliser mDNS :
+    Sur le réseau local, le protocole mDNS permet à une machine de répondre elle-même
+    à son nom machine.local, sans aucun fichier hosts ni serveur DNS (natif sur RasPi OS,
+    et ça s'ajoute sur Debian) :
+    ```bash
+    sudo hostnamectl set-hostname tpweb
+    sudo apt install avahi-daemon
+    sudo systemctl enable --now avahi-daemon
+    ```
 3. Ouvrir `https://tpweb.local` et accepter le certificat local (auto-signé).
 
 En production avec un vrai domaine : enregistrement DNS type A → Caddy obtient
