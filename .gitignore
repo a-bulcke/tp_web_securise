@@ -1,0 +1,26 @@
+# Secrets — jamais dans Git
+.env
+.env.*
+!.env.example
+
+# MQTT : comptes et certificats generes localement
+mosquitto/passwd
+mosquitto/certs/
+
+# Donnees locales
+db_data/
+*.sql
+*.dump
+*.log
+
+# OS / editeurs
+.DS_Store
+.vscode/
+.idea/
+
+# Python (variante Django)
+__pycache__/
+*.pyc
+db.sqlite3
+django/static/
+django/media/
