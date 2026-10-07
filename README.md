@@ -3,6 +3,13 @@
 Site **PHP** ou **Django** + MySQL en HTTPS, broker **Mosquitto**
 (MQTT sur TLS) et un service *bridge* qui recopie les messages MQTT en base.
 
+## 0. Installer Docker
+```bash
+curl -fsSL https://get.docker.com | sudo sh
+sudo usermod -aG docker $USER   # puis se déconnecter/reconnecter
+docker run hello-world          # test
+```
+
 ## 1. Préparer les secrets
 
 ```bash
