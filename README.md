@@ -1,4 +1,4 @@
-# TP — Site web sécurisé + collecte de capteurs (MQTT)
+# Site web sécurisé + collecte de capteurs (MQTT)
 
 Site **PHP** ou **Django** + MySQL en HTTPS, broker **Mosquitto**
 (MQTT sur TLS) et un service *bridge* qui recopie les messages MQTT en base.
