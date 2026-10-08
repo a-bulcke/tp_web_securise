@@ -27,17 +27,18 @@ services:
       - db_data:/var/lib/mysql
     networks: [internal]
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
 
   # ----- Broker MQTT (TLS externe, reseau interne pour le bridge) -----
   mosquitto:
     image: eclipse-mosquitto:2
     restart: unless-stopped
     ports:
-      - "8883:8883"          # MQTT sur TLS — acces cartes capteurs
+      - "8883:8883"
     volumes:
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
       - ./mosquitto/passwd:/mosquitto/config/passwd:ro
@@ -52,7 +53,7 @@ services:
     restart: unless-stopped
     environment:
       - MQTT_HOST=mosquitto
-      - MQTT_PORT=1883                 # listener interne (pas de TLS)
+      - MQTT_PORT=1883
       - MQTT_USER=${MQTT_BRIDGE_USER}
       - MQTT_PASSWORD=${MQTT_BRIDGE_PASSWORD}
       - MQTT_TOPIC=capteurs/#
@@ -99,10 +100,7 @@ services:
     profiles: [django]
     build: ./django
     restart: unless-stopped
-    command: >
-      sh -c "python manage.py migrate &&
-             gunicorn monprojet.wsgi:application
-             --bind 0.0.0.0:8000 --workers 3"
+    command: sh -c "python manage.py migrate && gunicorn monprojet.wsgi:application --bind 0.0.0.0:8000 --workers 3"
     environment:
       - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:?Definir DJANGO_SECRET_KEY}
       - DJANGO_DEBUG=0
@@ -123,5 +121,5 @@ volumes:
   mosquitto_data:
 
 networks:
-  web:        # exposition publique : caddy, php-web, django
-  internal:   # reseau prive : db, mosquitto, bridge, php-fpm
+  web:
+  internal:
