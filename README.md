@@ -33,7 +33,7 @@ docker compose --profile php up -d --build       # site PHP
 docker compose --profile django up -d --build    # site Django
 ```
 
-## 4. Tester sans carte avec capteurs qui envoie les mesures
+## 4. Tester sans capteurs (sans carte qui envoie les mesures capteurs)
 
 ```bash
 mosquitto_pub -h <IP_SERVEUR> -p 8883 \
