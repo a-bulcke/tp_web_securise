@@ -78,5 +78,5 @@ un certificat Let's Encrypt automatiquement, aucune entrée hosts nécessaire.
 ## Sécurité — rappels
 
 - `.env`, `mosquitto/passwd` et `mosquitto/certs/` ne sont **jamais** commités.
-- La carte n'a accès qu'au broker (TLS + compte `capteur`), jamais à la base.
-- Le bridge est le seul service autorisé à écrire en base (moindre privilège).
+- La carte n'a accès qu'au broker (TLS + compte `capteur`), jamais à la bdd.
+- Le bridge est le seul service autorisé à écrire dans la bdd (moindre privilège).
